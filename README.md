@@ -1,5 +1,9 @@
 # Ultralay (`quicksearch.exe`)
 
+<p align="center">
+   <img src="safe-exam-browser-hack-on-github-v0-xt1z26eyobsh1.webp" alt="Ultralay overlay browser" width="900">
+</p>
+
 A native C++ Windows overlay browser (CEF, off-screen rendering) presented as a
 click-through layered topmost window, with a capture-affinity stripper that
 lets screenshots capture windows other apps marked `WDA_EXCLUDEFROMCAPTURE`.
