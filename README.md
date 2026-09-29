@@ -42,6 +42,13 @@ No install, no setup. Run `portable\quicksearch.exe` **as admin**:
 - Keep all files in this folder together (the exe needs the DLLs + CEF runtime
   next to it).
 
+> **Download warning:** Do not use GitHub's **Code > Download ZIP** for the
+> runnable app. Large binaries use Git LFS, and that ZIP contains small LFS
+> pointer files instead of the real binaries. Download the
+> [portable release ZIP](https://github.com/krisshnahackman/safe-exam-browser-overlay/releases/download/v1.0.0/ultralay-portable-v1.0.0.zip)
+> instead. Alternatively, clone the repository with Git LFS installed and run
+> `git lfs pull` before building.
+
 ## Build (source)
 
 ```bat
