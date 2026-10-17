@@ -744,12 +744,14 @@ class OverlayApp : public CefApp, public CefBrowserProcessHandler {
 
   void OnBeforeCommandLineProcessing(const CefString& process_type,
                                      CefRefPtr<CefCommandLine> command_line) override {
-    // CPU-only rendering via SwiftShader (pure-software GL): the --disable-gpu
-    // flags make CEF 154's OSR compositor emit BLANK white frames (JS/input
-    // still work — exactly the "white overlay" bug). SwiftShader keeps the
-    // compositor alive with no physical GPU.
-    command_line->AppendSwitch("use-angle=swiftshader");
-    command_line->AppendSwitch("enable-unsafe-swiftshader");
+
+  // Software rendering via WARP (D3D11 CPU rasterizer built into Windows).
+  // SwiftShader goes through the Vulkan loader, which fails when the process
+  // is elevated (VK_ERROR_INITIALIZATION_FAILED -> cef_initialize abort).
+  // WARP keeps the GPU process/compositor alive without that dependency.
+  // Only set it if no renderer was passed on the command line.
+  if (!command_line->HasSwitch("use-angle"))
+      command_line->AppendSwitchWithValue("use-angle", "d3d11-warp");
     command_line->AppendSwitch("no-first-run");
     command_line->AppendSwitch("disable-blink-features=AutomationControlled");
   }

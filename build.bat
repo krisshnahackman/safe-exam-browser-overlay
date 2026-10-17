@@ -26,13 +26,13 @@ if not exist portable\obj mkdir portable\obj
 set "CFLAGS=/nologo /std:c++20 /O2 /MT /DNDEBUG /DUNICODE /D_UNICODE /DWIN32_LEAN_AND_MEAN /DNOMINMAX /GR- /D_HAS_EXCEPTIONS=0 /wd4244 /wd4267 /wd4838 /I %CEF%"
 set "LIBS=%WRAPPER% %CEF%\Release\libcef.lib gdiplus.lib shlwapi.lib psapi.lib user32.lib gdi32.lib shell32.lib ole32.lib comctl32.lib ws2_32.lib rpcrt4.lib crypt32.lib wintrust.lib delayimp.lib"
 
-cl %CFLAGS% src\subproc.cpp /Fe:portable\qshelper.exe /Fo:portable\obj\ /link %LIBS% /DELAYLOAD:libcef.dll /SUBSYSTEM:WINDOWS /PDBALTPATH:quicksearch.pdb
+cl %CFLAGS% src\subproc.cpp /Fe:portable\qshelper.exe /Fo:portable\obj\ /link /MANIFEST:EMBED /MANIFESTINPUT:src\app.manifest %LIBS% /DELAYLOAD:libcef.dll /SUBSYSTEM:WINDOWS /PDBALTPATH:quicksearch.pdb
 if errorlevel 1 (
     echo [ERROR] subproc build failed
     exit /b 1
 )
 
-cl %CFLAGS% src\main.cpp /Fe:portable\quicksearch.exe /Fo:portable\obj\ /link %LIBS% /DELAYLOAD:libcef.dll /SUBSYSTEM:WINDOWS /STACK:0x800000 /PDBALTPATH:quicksearch.pdb
+cl %CFLAGS% src\main.cpp /Fe:portable\quicksearch.exe /Fo:portable\obj\ /link /MANIFEST:EMBED /MANIFESTINPUT:src\app.manifest %LIBS% /DELAYLOAD:libcef.dll /SUBSYSTEM:WINDOWS /STACK:0x800000 /PDBALTPATH:quicksearch.pdb
 if errorlevel 1 (
     echo [ERROR] main build failed
     exit /b 1
